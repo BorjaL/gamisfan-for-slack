@@ -3,7 +3,7 @@ import { MessageParsed } from "../../../src/infraestructure/controller/MessagePa
 
 describe("ClapMessageParser", () => {
     describe("method parse", () => {
-        describe("text received is correct", () => {
+        describe("the received text is correct", () => {
             const text: string = "<@userId|userName> message";
 
             it("parses the user name", async () => {
@@ -25,7 +25,7 @@ describe("ClapMessageParser", () => {
             });
         });
 
-        describe("text received has no message", () => {
+        describe("the received text has no message", () => {
             const text: string = "<@userId|userName>";
 
             it("parses the user name", async () => {
@@ -47,25 +47,19 @@ describe("ClapMessageParser", () => {
             });
         });
 
-        describe("text received has user information", () => {
+        describe("the received text has no user information", () => {
             const text: string = "message";
 
-            it("parses the user name", async () => {
-                const result: MessageParsed = await ClapMessageParser.parse(text);
-
-                expect(result.getUser().getName()).toBe("userName");
+            it("throws a bad format error", async () => {
+                await expect(ClapMessageParser.parse(text)).rejects.toMatchObject({ message: `Bad format in < ${text} >`});
             });
+        });
 
-            it("parses the user id", async () => {
-                const result: MessageParsed = await ClapMessageParser.parse(text);
+        describe("the received text has wrong format in user information", () => {
+            const text: string = "@userId message";
 
-                expect(result.getUser().getId()).toBe("userId");
-            });
-
-            it("parses the message with empty value", async () => {
-                const result: MessageParsed = await ClapMessageParser.parse(text);
-
-                expect(result.getMessage().getValue()).toBe("");
+            it("throws a bad format error", async () => {
+                await expect(ClapMessageParser.parse(text)).rejects.toMatchObject({ message: `Bad format in < ${text} >`});
             });
         });
     });

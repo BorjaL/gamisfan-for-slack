@@ -7,9 +7,8 @@ export class ClapMessageParser {
             const matches = await regex.exec(message);
 
             return new MessageParsed(matches[1], matches[2], matches[3]);
-        }
-        catch (e){
-            return new MessageParsed(undefined, undefined, undefined);
+        } catch (e) {
+            throw new Error(`Bad format in < ${message} >`);
         }
     }
 }

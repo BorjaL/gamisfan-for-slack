@@ -11,7 +11,7 @@
     "start": "node -r dotenv/config $NODE_DEBUG_OPTION dist",
     "build": "rm -rf dist && npm run lint && tsc",
     "serve": "yarn build && node -r dotenv/config $NODE_DEBUG_OPTION dist",
-    "test": "jest",
+    "test": "jest --verbose",
     "lint": "tslint -c tslint.json -p tsconfig.json --force",
     "lint-fix": "tslint -c tslint.json -p tsconfig.json --fix --force",
     "tsc": "tsc -p tsconfig.json"

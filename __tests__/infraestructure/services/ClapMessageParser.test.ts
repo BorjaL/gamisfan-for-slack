@@ -6,16 +6,16 @@ describe("ClapMessageParser", () => {
         describe("the received text is correct", () => {
             const text: string = "<@userId|userName> message";
 
-            it("parses the user name", async () => {
+            it("parses the clap receiver name", async () => {
                 const result: MessageParsed = await ClapMessageParser.parse(text);
 
-                expect(result.getUser().getName()).toBe("userName");
+                expect(result.getClapReceiver().getName()).toBe("userName");
             });
 
-            it("parses the user id", async () => {
+            it("parses the clap receiver id", async () => {
                 const result: MessageParsed = await ClapMessageParser.parse(text);
 
-                expect(result.getUser().getId()).toBe("userId");
+                expect(result.getClapReceiver().getId()).toBe("userId");
             });
 
             it("parses the message", async () => {
@@ -28,16 +28,16 @@ describe("ClapMessageParser", () => {
         describe("the received text has no message", () => {
             const text: string = "<@userId|userName>";
 
-            it("parses the user name", async () => {
+            it("parses the clap receiver name", async () => {
                 const result: MessageParsed = await ClapMessageParser.parse(text);
 
-                expect(result.getUser().getName()).toBe("userName");
+                expect(result.getClapReceiver().getName()).toBe("userName");
             });
 
-            it("parses the user id", async () => {
+            it("parses the clap receiver id", async () => {
                 const result: MessageParsed = await ClapMessageParser.parse(text);
 
-                expect(result.getUser().getId()).toBe("userId");
+                expect(result.getClapReceiver().getId()).toBe("userId");
             });
 
             it("parses the message with empty value", async () => {
@@ -47,7 +47,7 @@ describe("ClapMessageParser", () => {
             });
         });
 
-        describe("the received text has no user information", () => {
+        describe("the received text has no clap receiver information", () => {
             const text: string = "message";
 
             it("throws a bad format error", async () => {
@@ -55,7 +55,7 @@ describe("ClapMessageParser", () => {
             });
         });
 
-        describe("the received text has wrong format in user information", () => {
+        describe("the received text has wrong format in clap receiver information", () => {
             const text: string = "@userId message";
 
             it("throws a bad format error", async () => {

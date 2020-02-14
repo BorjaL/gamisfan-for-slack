@@ -20,7 +20,7 @@ export class ClapController {
 
             const team: Team = new Team(data.team_id, data.team_domain);
             const clapper: User = new User(data.user_id, data.user_name);
-            const clapReceiver: User = messageParsed.getUser();
+            const clapReceiver: User = messageParsed.getClapReceiver();
             const message: Message = messageParsed.getMessage();
 
             const clapRepository: IClapRepository = new ClapRepositoryFirebase();

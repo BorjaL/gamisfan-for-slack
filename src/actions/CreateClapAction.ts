@@ -14,13 +14,10 @@ export class CreateClapAction {
         this.notificationSender = notificationSender;
     }
 
-    public async create(team: Team, clapper: User, receiver: User, message: Message): Promise<boolean> {
+    public create(team: Team, clapper: User, receiver: User, message: Message): void {
         const clap = new Clap(team, clapper, receiver, message);
 
-        const savedOk = this.repository.create(clap);
-
-        if (savedOk) { this.notificationSender.send(receiver, message); }
-
-        return savedOk;
+        this.repository.create(clap);
+        this.notificationSender.send(receiver, message);
     }
 }

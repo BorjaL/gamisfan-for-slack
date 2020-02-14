@@ -24,46 +24,13 @@ describe("CreateClapAction", () => {
             expect(clapRepositoryMock.create).toHaveBeenCalled();
         });
 
-        describe("when repository saves ok", () => {
-            test("notification sender method is called", async () => {
-                const notificationSenderMock = createNotificationSenderMock({});
-                const createClapAction: CreateClapAction= createAction({ notificationSenderMock })
-
-                await createClapAction.create(team, clapper, clapReceiver, message);
-
-                expect(notificationSenderMock.send).toHaveBeenCalled();
-            });
-
-            it("returns true", async () => {
-                const createClapAction: CreateClapAction= createAction({})
-
-                const result = await createClapAction.create(team, clapper, clapReceiver, message);
-
-                expect(result).toBeTruthy();
-            });
-        });
-
-        describe("when repository saves is not ok", () => {
-            const createMethodMock = jest.fn((clap: Clap) => { return false });
-            const clapRepositoryMock = createClapRespositoryMock({ create: createMethodMock });
-
+        test("notification sender method is called", async () => {
             const notificationSenderMock = createNotificationSenderMock({});
+            const createClapAction: CreateClapAction= createAction({ notificationSenderMock })
 
-            test("notification sender method is not called", async () => {
-                const createClapAction: CreateClapAction= createAction({ clapRepositoryMock, notificationSenderMock })
+            await createClapAction.create(team, clapper, clapReceiver, message);
 
-                await createClapAction.create(team, clapper, clapReceiver, message);
-
-                expect(notificationSenderMock.send).not.toHaveBeenCalled();
-            });
-
-            it("returns false", async () => {
-                const createClapAction: CreateClapAction= createAction({ clapRepositoryMock })
-
-                const result = await createClapAction.create(team, clapper, clapReceiver, message);
-
-                expect(result).toBeFalsy();
-            });
+            expect(notificationSenderMock.send).toHaveBeenCalled();
         });
     });
 });

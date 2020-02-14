@@ -5,8 +5,6 @@ import { Message } from "../../domain/valueObjects/Message";
 import { Team } from "../../domain/valueObjects/Team";
 import { User } from "../../domain/valueObjects/User";
 import { logger } from "../../logger";
-import { ClapRepositoryFirebase } from "../db/ClapRepositoryFirebase";
-import { NotificationSenderUserSlack } from "../notification/NotificationSenderUserSlack";
 import { ClapMessageParser } from "../services/ClapMessageParser";
 import { IClapCreationParams } from "./IClapCreationParams";
 import { MessageParsed } from "./MessageParsed";
@@ -33,21 +31,13 @@ export class ClapController {
 
             const createClapAction: CreateClapAction = new CreateClapAction(this.clapRepository, this.notificationSender);
 
-            const createdOk = await createClapAction.create(team, clapper, clapReceiver, message);
+            await createClapAction.create(team, clapper, clapReceiver, message);
 
-            if (createdOk) {
-                ctx.status = 200;
-                ctx.body = {
-                    response_type: "ephemeral",
-                    text: "You are a nice teammate :wink:",
-                };
-            } else {
-                ctx.status = 200;
-                ctx.body = {
-                    response_type: "ephemeral",
-                    text: "We couldn't clap your mate. Someone is working right away to fix it :)",
-                };
-            }
+            ctx.status = 200;
+            ctx.body = {
+                response_type: "ephemeral",
+                text: "You are a nice teammate :wink:",
+            };
         } catch (err) {
             logger.error("Error creating the clap with the following error: ", err);
             ctx.status = 200;

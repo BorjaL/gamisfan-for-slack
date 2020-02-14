@@ -24,7 +24,7 @@ export class ClapController {
             const message: Message = messageParsed.getMessage();
 
             const clapRepository: IClapRepository = new ClapRepositoryFirebase();
-            const notificationSender: INotificationSender = new NotificationSenderUserSlack(clapReceiver);
+            const notificationSender: INotificationSender = new NotificationSenderUserSlack();
             const createClapAction: CreateClapAction = new CreateClapAction(clapRepository, notificationSender);
 
             const createdOk = await createClapAction.create(team, clapper, clapReceiver, message);

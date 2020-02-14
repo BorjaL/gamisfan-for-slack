@@ -19,7 +19,7 @@ export class CreateClapAction {
 
         const savedOk = this.repository.create(clap);
 
-        if (savedOk) { this.notificationSender.send(message); }
+        if (savedOk) { this.notificationSender.send(receiver, message); }
 
         return savedOk;
     }

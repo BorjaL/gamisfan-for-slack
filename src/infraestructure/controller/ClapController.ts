@@ -12,6 +12,14 @@ import { IClapCreationParams } from "./IClapCreationParams";
 import { MessageParsed } from "./MessageParsed";
 
 export class ClapController {
+    private clapRepository: IClapRepository;
+    private notificationSender: INotificationSender;
+
+    constructor(clapRepository: IClapRepository, notificationSender: INotificationSender) {
+        this.clapRepository = clapRepository;
+        this.notificationSender = notificationSender;
+    }
+
     public async createClap(ctx: any, next: any) {
         const data: IClapCreationParams = ctx.request.body;
 
@@ -23,9 +31,7 @@ export class ClapController {
             const clapReceiver: User = messageParsed.getClapReceiver();
             const message: Message = messageParsed.getMessage();
 
-            const clapRepository: IClapRepository = new ClapRepositoryFirebase();
-            const notificationSender: INotificationSender = new NotificationSenderUserSlack();
-            const createClapAction: CreateClapAction = new CreateClapAction(clapRepository, notificationSender);
+            const createClapAction: CreateClapAction = new CreateClapAction(this.clapRepository, this.notificationSender);
 
             const createdOk = await createClapAction.create(team, clapper, clapReceiver, message);
 

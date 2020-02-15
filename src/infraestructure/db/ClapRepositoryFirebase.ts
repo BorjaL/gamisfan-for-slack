@@ -1,9 +1,9 @@
 import { Clap } from "../../domain/Clap";
-import { IClapRepository } from "../../domain/IClapRepository";
+import { ClapRepository } from "../../domain/ClapRepository";
 import { logger } from "../../logger";
 import db from "./firebaseDatabase";
 
-export class ClapRepositoryFirebase implements IClapRepository {
+export class ClapRepositoryFirebase implements ClapRepository {
     private db: any = db;
 
     public create(clap: Clap): void {

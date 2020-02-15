@@ -1,5 +1,5 @@
 import { ClapController } from "../../../src/infraestructure/controller/ClapController";
-import { IClapRepository } from "../../../src/domain/IClapRepository";
+import { ClapRepository } from "../../../src/domain/ClapRepository";
 import { INotificationSender } from "../../../src/domain/INotificationSender";
 
 describe("ClapController", () => {
@@ -12,7 +12,7 @@ describe("ClapController", () => {
                     }
                 }
             }
-            const ClapRepositoryMock = jest.fn<IClapRepository, []>(() => ({
+            const ClapRepositoryMock = jest.fn<ClapRepository, []>(() => ({
               create: jest.fn(() => true),
             }));
 

@@ -1,5 +1,5 @@
 import { Clap } from "./clap";
 
-export interface IClapRepository {
+export interface ClapRepository {
     create(clap: Clap): void;
 }

@@ -1,15 +1,15 @@
 import { Clap } from "../domain/Clap";
-import { IClapRepository } from "../domain/IClapRepository";
+import { ClapRepository } from "../domain/ClapRepository";
 import { INotificationSender } from "../domain/INotificationSender";
 import { Message } from "../domain/valueObjects/Message";
 import { Team } from "../domain/valueObjects/Team";
 import { User } from "../domain/valueObjects/User";
 
 export class CreateClapAction {
-    private repository: IClapRepository;
+    private repository: ClapRepository;
     private notificationSender: INotificationSender;
 
-    constructor(repository: IClapRepository, notificationSender: INotificationSender) {
+    constructor(repository: ClapRepository, notificationSender: INotificationSender) {
         this.repository = repository;
         this.notificationSender = notificationSender;
     }

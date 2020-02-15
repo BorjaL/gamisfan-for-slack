@@ -2,7 +2,7 @@ import { Message } from "../../src/domain/valueObjects/Message";
 import { Team } from "../../src/domain/valueObjects/Team";
 import { User } from "../../src/domain/valueObjects/User";
 import { Clap } from "../../src/domain/Clap";
-import { IClapRepository } from "../../src/domain/IClapRepository";
+import { ClapRepository } from "../../src/domain/ClapRepository";
 import { INotificationSender } from "../../src/domain/INotificationSender";
 import { CreateClapAction } from "../../src/actions/CreateClapAction";
 
@@ -38,7 +38,7 @@ describe("CreateClapAction", () => {
 function createClapRespositoryMock(mockMethods: any){
     const createMethod = mockMethods.create || jest.fn((clap: Clap) => { return true });
 
-    const ClapRepositoryMock = jest.fn<IClapRepository, []>(() => ({
+    const ClapRepositoryMock = jest.fn<ClapRepository, []>(() => ({
       create: createMethod,
     }));
 

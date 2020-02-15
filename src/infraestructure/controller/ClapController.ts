@@ -1,5 +1,5 @@
 import { CreateClapAction } from "../../actions/CreateClapAction";
-import { IClapRepository } from "../../domain/IClapRepository";
+import { ClapRepository } from "../../domain/ClapRepository";
 import { INotificationSender } from "../../domain/INotificationSender";
 import { Message } from "../../domain/valueObjects/Message";
 import { Team } from "../../domain/valueObjects/Team";
@@ -10,10 +10,10 @@ import { IClapCreationParams } from "./IClapCreationParams";
 import { MessageParsed } from "./MessageParsed";
 
 export class ClapController {
-    private clapRepository: IClapRepository;
+    private clapRepository: ClapRepository;
     private notificationSender: INotificationSender;
 
-    constructor(clapRepository: IClapRepository, notificationSender: INotificationSender) {
+    constructor(clapRepository: ClapRepository, notificationSender: INotificationSender) {
         this.clapRepository = clapRepository;
         this.notificationSender = notificationSender;
     }

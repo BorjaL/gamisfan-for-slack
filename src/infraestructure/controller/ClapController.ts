@@ -6,7 +6,7 @@ import { Team } from "../../domain/valueObjects/Team";
 import { User } from "../../domain/valueObjects/User";
 import { logger } from "../../logger";
 import { ClapMessageParser } from "../services/ClapMessageParser";
-import { IClapCreationParams } from "./IClapCreationParams";
+import { ClapCreationParams } from "./ClapCreationParams";
 import { MessageParsed } from "./MessageParsed";
 
 export class ClapController {
@@ -19,7 +19,7 @@ export class ClapController {
     }
 
     public async createClap(ctx: any, next: any) {
-        const data: IClapCreationParams = ctx.request.body;
+        const data: ClapCreationParams = ctx.request.body;
 
         try {
             const messageParsed: MessageParsed = await ClapMessageParser.parse(data.text);

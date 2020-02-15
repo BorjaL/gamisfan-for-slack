@@ -1,4 +1,4 @@
-export interface IClapCreationParams {
+export interface ClapCreationParams {
     team_id: string;
     team_domain: string;
     user_id: string;

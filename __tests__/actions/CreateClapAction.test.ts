@@ -3,7 +3,7 @@ import { Team } from "../../src/domain/valueObjects/Team";
 import { User } from "../../src/domain/valueObjects/User";
 import { Clap } from "../../src/domain/Clap";
 import { ClapRepository } from "../../src/domain/ClapRepository";
-import { INotificationSender } from "../../src/domain/INotificationSender";
+import { NotificationSender } from "../../src/domain/NotificationSender";
 import { CreateClapAction } from "../../src/actions/CreateClapAction";
 
 describe("CreateClapAction", () => {
@@ -48,7 +48,7 @@ function createClapRespositoryMock(mockMethods: any){
 function createNotificationSenderMock(mockMethods: any){
     const sendMethod = mockMethods.send || jest.fn(() => {});
 
-    const NotificationSenderMock = jest.fn<INotificationSender, []>(() => ({
+    const NotificationSenderMock = jest.fn<NotificationSender, []>(() => ({
       send: sendMethod,
     }));
 

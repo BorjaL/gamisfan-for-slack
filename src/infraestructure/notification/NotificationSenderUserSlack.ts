@@ -1,10 +1,10 @@
 import { WebClient } from "@slack/web-api";
 import { config } from "../../config";
-import { INotificationSender } from "../../domain/INotificationSender";
+import { NotificationSender } from "../../domain/NotificationSender";
 import { Message } from "../../domain/valueObjects/Message";
 import { User } from "../../domain/valueObjects/User";
 
-export class NotificationSenderUserSlack implements INotificationSender {
+export class NotificationSenderUserSlack implements NotificationSender {
     private web: WebClient;
 
     constructor() {

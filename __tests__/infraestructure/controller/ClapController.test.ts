@@ -1,6 +1,6 @@
 import { ClapController } from "../../../src/infraestructure/controller/ClapController";
 import { ClapRepository } from "../../../src/domain/ClapRepository";
-import { INotificationSender } from "../../../src/domain/INotificationSender";
+import { NotificationSender } from "../../../src/domain/NotificationSender";
 
 describe("ClapController", () => {
     describe("createClap", () => {
@@ -16,7 +16,7 @@ describe("ClapController", () => {
               create: jest.fn(() => true),
             }));
 
-            const NotificationSenderMock = jest.fn<INotificationSender, []>(() => ({
+            const NotificationSenderMock = jest.fn<NotificationSender, []>(() => ({
               send: jest.fn(),
             }));
 

@@ -1,6 +1,6 @@
 import { Message } from "./valueObjects/Message";
 import { User } from "./valueObjects/User";
 
-export interface INotificationSender {
+export interface NotificationSender {
     send(receiver: User, message: Message): void;
 }

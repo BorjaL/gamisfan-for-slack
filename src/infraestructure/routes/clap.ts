@@ -1,8 +1,8 @@
 import * as Router from "koa-router";
 import { ClapController } from "../controller/ClapController";
-import { slackMiddleware } from "./middleware/slackMiddleware";
 import { ClapRepositoryFirebase } from "../db/ClapRepositoryFirebase";
 import { NotificationSenderUserSlack } from "../notification/NotificationSenderUserSlack";
+import { slackMiddleware } from "./middleware/slackMiddleware";
 
 const router = new Router({ prefix: "/clap" });
 

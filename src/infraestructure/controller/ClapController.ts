@@ -29,7 +29,8 @@ export class ClapController {
             const clapReceiver: User = messageParsed.getClapReceiver();
             const message: Message = messageParsed.getMessage();
 
-            const createClapAction: CreateClapAction = new CreateClapAction(this.clapRepository, this.notificationSender);
+            const createClapAction: CreateClapAction = new CreateClapAction(this.clapRepository,
+                                                                            this.notificationSender);
 
             await createClapAction.create(team, clapper, clapReceiver, message);
 

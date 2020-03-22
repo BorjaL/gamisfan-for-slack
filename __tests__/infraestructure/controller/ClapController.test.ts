@@ -2,13 +2,16 @@ import { ClapController } from "../../../src/infraestructure/controller/ClapCont
 import { ClapRepository } from "../../../src/domain/ClapRepository";
 import { NotificationSender } from "../../../src/domain/NotificationSender";
 
+const RIGHT_FORMAT_MESSAGE = "<@userId|userName> message";
+const BAD_FORMAT_MESSAGE = "Bad format message"
+
 describe("ClapController", () => {
     describe("createClap", () => {
         it("happy path", async () => {
             const mockContext = <any>{
                 request: {
                     body: {
-                        text: "<@userId|userName> message"
+                        text: RIGHT_FORMAT_MESSAGE
                     }
                 }
             }
@@ -33,7 +36,7 @@ describe("ClapController", () => {
             const mockContext = <any>{
                 request: {
                     body: {
-                        text: "<@userId|userName> message"
+                        text: RIGHT_FORMAT_MESSAGE
                     }
                 }
             }
@@ -57,7 +60,7 @@ describe("ClapController", () => {
             const mockContext = <any>{
                 request: {
                     body: {
-                        text: "Bad format message"
+                        text: BAD_FORMAT_MESSAGE
                     }
                 }
             }

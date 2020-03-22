@@ -25,6 +25,7 @@
     "@types/qs": "^6.9.0",
     "dotenv": "^8.2.0",
     "firebase-admin": "^8.7.0",
+    "http-status-codes": "^1.4.0",
     "koa": "^2.10.0",
     "koa-bodyparser": "^4.2.1",
     "koa-combine-routers": "^4.0.2",

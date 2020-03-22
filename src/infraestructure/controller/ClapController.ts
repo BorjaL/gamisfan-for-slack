@@ -8,6 +8,7 @@ import { logger } from "../../logger";
 import { ClapMessageParser } from "../services/ClapMessageParser";
 import { ClapCreationParams } from "./ClapCreationParams";
 import { MessageParsed } from "./MessageParsed";
+import SlackMessageBadFormatException from "./exceptions/SlackMessageBadFormatException";
 
 export class ClapController {
     private clapRepository: ClapRepository;
@@ -40,12 +41,21 @@ export class ClapController {
                 text: "You are a nice teammate :wink:",
             };
         } catch (err) {
+            if (err instanceof SlackMessageBadFormatException) {
+                ctx.status = 200;
+                ctx.body = {
+                    response_type: "in_channel",
+                    text: "Please, make sure that you select a user with @",
+                };
+            }
+            else {
+                ctx.status = 500;
+                ctx.body = {
+                    response_type: "in_channel",
+                    text: "Ops, something unexpected went wrong, please try again",
+                };
+            }
             logger.error("Error creating the clap with the following error: ", err);
-            ctx.status = 200;
-            ctx.body = {
-                response_type: "in_channel",
-                text: "Please, make sure that you select a user with @",
-            };
         }
 
         return next();

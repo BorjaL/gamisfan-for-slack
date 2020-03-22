@@ -1,4 +1,5 @@
 import { MessageParsed } from "../controller/MessageParsed";
+import SlackMessageBadFormatException from "../controller/exceptions/SlackMessageBadFormatException";
 
 export class ClapMessageParser {
     public static async parse(message: string): Promise<MessageParsed> {
@@ -8,7 +9,7 @@ export class ClapMessageParser {
 
             return new MessageParsed(matches[1], matches[2], matches[3]);
         } catch (e) {
-            throw new Error(`Bad format in < ${message} >`);
+            throw new SlackMessageBadFormatException(`Bad format in < ${message} >`);
         }
     }
 }

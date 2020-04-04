@@ -35,29 +35,45 @@ export class ClapController {
 
             await createClapAction.create(team, clapper, clapReceiver, message);
 
-            ctx.status = 200;
-            ctx.body = {
-                response_type: "ephemeral",
-                text: "You are a nice teammate :wink:",
-            };
+            this.setContextForResponseEverythingOK(ctx);
         } catch (err) {
-            if (err instanceof SlackMessageBadFormatException) {
-                ctx.status = 200;
-                ctx.body = {
-                    response_type: "in_channel",
-                    text: "Please, make sure that you select a user with @",
-                };
-            }
-            else {
-                ctx.status = 500;
-                ctx.body = {
-                    response_type: "in_channel",
-                    text: "Ops, something unexpected went wrong, please try again",
-                };
-            }
+            this.setContextForErrorResponse(ctx, err);
             logger.error("Error creating the clap with the following error: ", err);
         }
 
         return next();
+    }
+
+    private setContextForResponseEverythingOK(ctx: any){
+        ctx.status = 200;
+        ctx.body = {
+            response_type: "ephemeral",
+            text: "You are a nice teammate :wink:",
+        };
+    }
+
+    private setContextForErrorResponse(ctx: any, err: Error){
+        ctx.status = 500;
+
+        if (err instanceof SlackMessageBadFormatException) {
+            this.setContextForResponseMessageWithBadFormatError(ctx);
+        }
+        else {
+            this.setContextForResponseGeneralError(ctx);
+        }
+    }
+
+    private setContextForResponseMessageWithBadFormatError(ctx: any){
+        ctx.body = {
+            response_type: "in_channel",
+            text: "Please, make sure that you select a user with @",
+        };
+    }
+
+    private setContextForResponseGeneralError(ctx: any){
+        ctx.body = {
+            response_type: "in_channel",
+            text: "Ops, something unexpected went wrong, please try again",
+        };
     }
 }

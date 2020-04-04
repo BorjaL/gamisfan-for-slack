@@ -1,6 +1,7 @@
 import { ClapController } from "../../../src/infraestructure/controller/ClapController";
 import { ClapRepository } from "../../../src/domain/ClapRepository";
 import { NotificationSender } from "../../../src/domain/NotificationSender";
+import * as HttpStatus from 'http-status-codes';
 
 const RIGHT_FORMAT_MESSAGE = "<@userId|userName> message";
 const BAD_FORMAT_MESSAGE = "Bad format message"
@@ -29,7 +30,7 @@ describe("ClapController", () => {
             const controller = new ClapController(clapRepository, notificationSender);
             await controller.createClap(mockContext, jest.fn())
 
-            expect(mockContext.status).toBe(200);
+            expect(mockContext.status).toBe(HttpStatus.OK);
         });
 
         it("returns an error from the repository", async () => {
@@ -52,11 +53,11 @@ describe("ClapController", () => {
             const controller = new ClapController(clapRepository, notificationSender);
             await controller.createClap(mockContext, jest.fn())
 
-            expect(mockContext.status).toBe(500);
+            expect(mockContext.status).toBe(HttpStatus.INTERNAL_SERVER_ERROR);
         });
 
 
-        it("returns an error because", async () => {
+        it("returns an error because bad format", async () => {
             const mockContext = <any>{
                 request: {
                     body: {
@@ -73,7 +74,7 @@ describe("ClapController", () => {
             const controller = new ClapController(clapRepository, notificationSender);
             await controller.createClap(mockContext, jest.fn())
 
-            expect(mockContext.status).toBe(200);
+            expect(mockContext.status).toBe(HttpStatus.INTERNAL_SERVER_ERROR);
         });
     });
 });

@@ -9,6 +9,7 @@ import { ClapMessageParser } from "../services/ClapMessageParser";
 import { ClapCreationParams } from "./ClapCreationParams";
 import { MessageParsed } from "./MessageParsed";
 import SlackMessageBadFormatException from "./exceptions/SlackMessageBadFormatException";
+import * as HttpStatus from 'http-status-codes';
 
 export class ClapController {
     private clapRepository: ClapRepository;
@@ -45,7 +46,7 @@ export class ClapController {
     }
 
     private setContextForResponseEverythingOK(ctx: any){
-        ctx.status = 200;
+        ctx.status = HttpStatus.OK;
         ctx.body = {
             response_type: "ephemeral",
             text: "You are a nice teammate :wink:",
@@ -53,7 +54,7 @@ export class ClapController {
     }
 
     private setContextForErrorResponse(ctx: any, err: Error){
-        ctx.status = 500;
+        ctx.status = HttpStatus.INTERNAL_SERVER_ERROR;
 
         if (err instanceof SlackMessageBadFormatException) {
             this.setContextForResponseMessageWithBadFormatError(ctx);

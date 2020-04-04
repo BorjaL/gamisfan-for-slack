@@ -57,8 +57,6 @@
     },
     "testRegex": "(/test/.*|(\\.|/)(test|spec))\\.(js|ts)x?$",
     "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/build/",
       "/dist/"
     ],
     "preset": "ts-jest",

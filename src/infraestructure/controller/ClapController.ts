@@ -1,3 +1,4 @@
+import * as HttpStatus from "http-status-codes";
 import { CreateClapAction } from "../../actions/CreateClapAction";
 import { ClapRepository } from "../../domain/ClapRepository";
 import { NotificationSender } from "../../domain/NotificationSender";
@@ -7,9 +8,8 @@ import { User } from "../../domain/valueObjects/User";
 import { logger } from "../../logger";
 import { ClapMessageParser } from "../services/ClapMessageParser";
 import { ClapCreationParams } from "./ClapCreationParams";
-import { MessageParsed } from "./MessageParsed";
 import SlackMessageBadFormatException from "./exceptions/SlackMessageBadFormatException";
-import * as HttpStatus from 'http-status-codes';
+import { MessageParsed } from "./MessageParsed";
 
 export class ClapController {
     private clapRepository: ClapRepository;
@@ -45,7 +45,7 @@ export class ClapController {
         return next();
     }
 
-    private setContextForResponseEverythingOK(ctx: any){
+    private setContextForResponseEverythingOK(ctx: any) {
         ctx.status = HttpStatus.OK;
         ctx.body = {
             response_type: "ephemeral",
@@ -53,25 +53,24 @@ export class ClapController {
         };
     }
 
-    private setContextForErrorResponse(ctx: any, err: Error){
+    private setContextForErrorResponse(ctx: any, err: Error) {
         ctx.status = HttpStatus.INTERNAL_SERVER_ERROR;
 
         if (err instanceof SlackMessageBadFormatException) {
             this.setContextForResponseMessageWithBadFormatError(ctx);
-        }
-        else {
+        } else {
             this.setContextForResponseGeneralError(ctx);
         }
     }
 
-    private setContextForResponseMessageWithBadFormatError(ctx: any){
+    private setContextForResponseMessageWithBadFormatError(ctx: any) {
         ctx.body = {
             response_type: "in_channel",
             text: "Please, make sure that you select a user with @",
         };
     }
 
-    private setContextForResponseGeneralError(ctx: any){
+    private setContextForResponseGeneralError(ctx: any) {
         ctx.body = {
             response_type: "in_channel",
             text: "Ops, something unexpected went wrong, please try again",

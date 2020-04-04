@@ -1,5 +1,5 @@
-import { MessageParsed } from "../controller/MessageParsed";
 import SlackMessageBadFormatException from "../controller/exceptions/SlackMessageBadFormatException";
+import { MessageParsed } from "../controller/MessageParsed";
 
 export class ClapMessageParser {
     public static async parse(message: string): Promise<MessageParsed> {
